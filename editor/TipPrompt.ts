@@ -546,6 +546,12 @@ export class TipPrompt implements Prompt {
 					p("This setting is a volume multiplier applied to the second voice. This setting will only work correctly with two voices."),
 				);
 			} break;
+			case "songDescription": {
+				message = div(
+					h2("Song Description"),
+					p("Todo"),
+				);
+			} break;
 
 			default:
 				// Check for modSetinfo#

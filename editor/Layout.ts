@@ -5,6 +5,17 @@ import { ColorConfig } from "./ColorConfig";
 
 export class Layout {
 	private static readonly _layoutMap: {[K: string]: string} = {
+		"channel autocondense": `
+			.trackAndMuteContainer:not(:hover) {
+				max-height: 132px !important;
+				overflow-y: hidden !important;
+			  transition: 0.2s;
+			}
+
+			.trackAndMuteContainer:hover {
+			  transition: 0.2s;
+			}
+		`,
 		"small": "",
 		"long": `\
 
@@ -530,8 +541,13 @@ export class Layout {
 	}
 		
 		private static readonly _styleElement: HTMLStyleElement = document.head.appendChild(HTML.style({type: "text/css"}));
+		private static readonly _autocondenseStyleElement: HTMLStyleElement = document.head.appendChild(HTML.style({type: "text/css"}, this._layoutMap["channel autocondense"]));
 		
 	public static setLayout(layout: string): void {
 		this._styleElement.textContent = this._layoutMap[layout];
+	}
+	
+	public static setAutocondense(active: boolean, layout: string): void {
+		this._autocondenseStyleElement.disabled = !active || !["long", "wide long", "flipped long", "focused long"].includes(layout);
 	}
 }

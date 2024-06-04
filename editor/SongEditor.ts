@@ -826,6 +826,7 @@ export class SongEditor {
         option({ value: "showOscilloscope" }, "Show Oscilloscope"),
         option({ value: "showSampleLoadingStatus" }, "Show Sample Loading Status"),
         option({ value: "showDescription" }, "Show Description"),
+        option({ value: "channelAutocondense" }, "Autocondense Channel Bar"),
         option({ value: "layout" }, "Set Layout..."),
         option({ value: "colorTheme" }, "Set Theme..."),
 	    option({ value: "customTheme" }, "Custom Theme..."),
@@ -1713,6 +1714,30 @@ export class SongEditor {
             layoutOption.disabled = true;
             layoutOption.setAttribute("hidden", "");
         }
+		
+		const renderStupid = (rep: number) => {
+			if (rep >= 0 && this._doc.prefs.channelAutocondense) {
+				setTimeout(renderStupid, 15, rep - 1);
+				this.whenUpdated();
+				//this is not a usual way of doing this but array.forEach being the way to do it is forcing this to be the case
+				//also, i should be using the actual variables that hold these objects but i dont know what the variables are
+				try {
+					Array.from(document.getElementsByClassName("channelBox") as HTMLCollectionOf<HTMLElement>).forEach((v) => {
+						if (v.style.background.indexOf("primary-channel") != -1) {
+							const boxPos = v.getBoundingClientRect();
+							const bigPos = document.getElementsByClassName("channelBox")[0].getBoundingClientRect();
+							this._trackAndMuteContainer.scroll({top: boxPos.y - bigPos.y});
+							throw DOMException;
+						}
+					});
+				} catch(_) {}
+			}
+		}
+		
+		this._trackAndMuteContainer.addEventListener("animationiteration", () => {renderStupid(0)});
+		this._trackAndMuteContainer.addEventListener("animationend", () => {renderStupid(2)});
+		this._trackAndMuteContainer.addEventListener("mouseover", () => {renderStupid(15)});
+		this._trackAndMuteContainer.addEventListener("mouseout", () => {renderStupid(15)});
     }
 
     private _whenSampleLoadingStatusClicked = (): void => {
@@ -2259,6 +2284,7 @@ export class SongEditor {
             (prefs.showOscilloscope ? textOnIcon : textOffIcon) + "Show Oscilloscope",
             (prefs.showSampleLoadingStatus ? textOnIcon : textOffIcon) + "Show Sample Loading Status",
             (prefs.showDescription ? textOnIcon : textOffIcon) + "Show Description",
+            (prefs.channelAutocondense ? textOnIcon : textOffIcon) + "Autocondense Channels Bar",
             textSpacingIcon + "Set Layout...",
             textSpacingIcon + "Set Theme...",
 	        textSpacingIcon + "Custom Theme...",
@@ -5173,6 +5199,9 @@ export class SongEditor {
                 break;
             case "frostedGlassBackground":
                 this._doc.prefs.frostedGlassBackground = !this._doc.prefs.frostedGlassBackground;
+                break;
+            case "channelAutocondense":
+                this._doc.prefs.channelAutocondense = !this._doc.prefs.channelAutocondense;
                 break;
         }
         this._optionsMenu.selectedIndex = 0;

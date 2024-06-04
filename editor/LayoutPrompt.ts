@@ -142,6 +142,7 @@ export class LayoutPrompt implements Prompt {
 		this._doc.prefs.layout = (<any> this._form.elements)["layout"].value;
 		this._doc.prefs.save();
 		Layout.setLayout(this._doc.prefs.layout);
+		Layout.setAutocondense(this._doc.prefs.channelAutocondense, this._doc.prefs.layout);
 		this._close();
 	}
 }

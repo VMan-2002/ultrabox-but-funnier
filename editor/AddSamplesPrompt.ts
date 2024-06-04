@@ -46,14 +46,80 @@ export class AddSamplesPrompt {
         this._addMultipleSamplesButton
     );
     private readonly _instructionsLink: HTMLAnchorElement = a({ href: "#" }, "Here's more information and some instructions on how to use custom samples in UltraBox.");
+	
+
+	//These 3 functions are here because it causes a compile error if they are lower than description
+    private _shortcutLegacySamples = (event: Event): void => {
+		if (this._entries.filter((item) => {item.url.toLowerCase() == "legacysamples"}).length != 0) {
+			return;
+		}
+        const entryIndex: number = this._entries.length;
+        this._entries.push({
+            url: "legacySamples",
+            sampleRate: 44100,
+            rootKey: 60,
+            percussion: false,
+            chipWaveLoopStart: null,
+            chipWaveLoopEnd: null,
+            chipWaveStartOffset: null,
+            chipWaveLoopMode: null,
+            chipWavePlayBackwards: false,
+        });
+        this._entryOptionsDisplayStates[entryIndex] = false;
+        this._reconfigureAddSampleButton();
+        this._render(true);
+    }
+
+    private _shortcutNintariboxSamples = (event: Event): void => {
+		if (this._entries.filter((item) => {item.url.toLowerCase() == "nintariboxsamples"}).length != 0) {
+			return;
+		}
+        const entryIndex: number = this._entries.length;
+        this._entries.push({
+            url: "nintariboxSamples",
+            sampleRate: 44100,
+            rootKey: 60,
+            percussion: false,
+            chipWaveLoopStart: null,
+            chipWaveLoopEnd: null,
+            chipWaveStartOffset: null,
+            chipWaveLoopMode: null,
+            chipWavePlayBackwards: false,
+        });
+        this._entryOptionsDisplayStates[entryIndex] = false;
+        this._reconfigureAddSampleButton();
+        this._render(true);
+    }
+
+    private _shortcutMarioPaintboxSamples = (event: Event): void => {
+		if (this._entries.filter((item) => {item.url.toLowerCase() == "mariopaintboxsamples"}).length != 0) {
+			return;
+		}
+        const entryIndex: number = this._entries.length;
+        this._entries.push({
+            url: "marioPaintboxSamples",
+            sampleRate: 44100,
+            rootKey: 60,
+            percussion: false,
+            chipWaveLoopStart: null,
+            chipWaveLoopEnd: null,
+            chipWaveStartOffset: null,
+            chipWaveLoopMode: null,
+            chipWavePlayBackwards: false,
+        });
+        this._entryOptionsDisplayStates[entryIndex] = false;
+        this._reconfigureAddSampleButton();
+        this._render(true);
+    }
+	
     private readonly _description: HTMLDivElement = div(
         div({ style: "margin-bottom: 0.5em; -webkit-user-select: text; -moz-user-select: text; -ms-user-select: text; user-select: text; cursor: text;" },
             "In order to use the old UltraBox samples, you should add ",
-            code("legacySamples"),
+            code({onclick: this._shortcutLegacySamples}, "legacySamples"),
             " as an URL. You can also use ",
-            code("nintariboxSamples"),
+            code({onclick: this._shortcutNintariboxSamples}, "nintariboxSamples"),
             " and ",
-            code("marioPaintboxSamples"),
+            code({onclick: this._shortcutMarioPaintboxSamples}, "marioPaintboxSamples"),
             " for more built-in sample packs."
         ),
         div({ style: "margin-bottom: 0.5em;" },

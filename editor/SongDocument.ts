@@ -67,6 +67,7 @@ export class SongDocument {
 		
 		ColorConfig.setTheme(this.prefs.colorTheme);
 		Layout.setLayout(this.prefs.layout);
+		Layout.setAutocondense(this.prefs.channelAutocondense, this.prefs.layout);
 		
 		if (window.sessionStorage.getItem("currentUndoIndex") == null) {
 			window.sessionStorage.setItem("currentUndoIndex", "0");
