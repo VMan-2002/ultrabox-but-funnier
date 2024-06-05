@@ -1,6 +1,6 @@
 // Copyright (c) 2012-2022 John Nesky and contributing authors, distributed under the MIT license, see accompanying the LICENSE.md file.
 
-//import {Layout} from "./Layout";
+import {Layout} from "./Layout";
 import { sampleLoadEvents, SampleLoadedEvent, InstrumentType, EffectType, Config, effectsIncludeTransition, effectsIncludeChord, effectsIncludePitchShift, effectsIncludeDetune, effectsIncludeVibrato, effectsIncludeNoteFilter, effectsIncludeDistortion, effectsIncludeBitcrusher, effectsIncludePanning, effectsIncludeChorus, effectsIncludeEcho, effectsIncludeReverb, DropdownID } from "../synth/SynthConfig";
 import { BarScrollBar } from "./BarScrollBar";
 import { BeatsPerBarPrompt } from "./BeatsPerBarPrompt";
@@ -1715,30 +1715,29 @@ export class SongEditor {
             layoutOption.setAttribute("hidden", "");
         }
 		
-		const renderStupid = (rep: number) => {
-			if (rep >= 0 && this._doc.prefs.channelAutocondense) {
-				setTimeout(renderStupid, 15, rep - 1);
-				this.whenUpdated();
-				//this is not a usual way of doing this but array.forEach being the way to do it is forcing this to be the case
-				//also, i should be using the actual variables that hold these objects but i dont know what the variables are
-				try {
-					Array.from(document.getElementsByClassName("channelBox") as HTMLCollectionOf<HTMLElement>).forEach((v) => {
-						if (v.style.background.indexOf("primary-channel") != -1) {
-							const boxPos = v.getBoundingClientRect();
-							const bigPos = document.getElementsByClassName("channelBox")[0].getBoundingClientRect();
-							this._trackAndMuteContainer.scroll({top: boxPos.y - bigPos.y});
-							throw DOMException;
-						}
-					});
-				} catch(_) {}
-			}
-		}
-		
-		this._trackAndMuteContainer.addEventListener("animationiteration", () => {renderStupid(0)});
-		this._trackAndMuteContainer.addEventListener("animationend", () => {renderStupid(2)});
-		this._trackAndMuteContainer.addEventListener("mouseover", () => {renderStupid(15)});
-		this._trackAndMuteContainer.addEventListener("mouseout", () => {renderStupid(15)});
+		this._trackAndMuteContainer.addEventListener("animationiteration", () => {this.renderStupid(0)});
+		this._trackAndMuteContainer.addEventListener("animationend", () => {this.renderStupid(2)});
+		this._trackAndMuteContainer.addEventListener("mouseover", () => {this.renderStupid(15)});
+		this._trackAndMuteContainer.addEventListener("mouseout", () => {this.renderStupid(15)});
     }
+	private renderStupid = (rep: number): void => {
+		if (rep >= 0 && this._doc.prefs.channelAutocondense) {
+			setTimeout(this.renderStupid, 15, rep - 1);
+			this.whenUpdated();
+			//this is not a usual way of doing this but array.forEach being the way to do it is forcing this to be the case
+			//also, i should be using the actual variables that hold these objects but i dont know what the variables are
+			try {
+				Array.from(document.getElementsByClassName("channelBox") as HTMLCollectionOf<HTMLElement>).forEach((v) => {
+					if (v.style.background.indexOf("primary-channel") != -1) {
+						const boxPos = v.getBoundingClientRect();
+						const bigPos = document.getElementsByClassName("channelBox")[0].getBoundingClientRect();
+						this._trackAndMuteContainer.scroll({top: boxPos.y - bigPos.y});
+						throw DOMException;
+					}
+				});
+			} catch(_) {}
+		}
+	}
 
     private _whenSampleLoadingStatusClicked = (): void => {
         this._openPrompt("sampleLoadingStatus");
@@ -5202,6 +5201,8 @@ export class SongEditor {
                 break;
             case "channelAutocondense":
                 this._doc.prefs.channelAutocondense = !this._doc.prefs.channelAutocondense;
+				Layout.setAutocondense(this._doc.prefs.channelAutocondense, this._doc.prefs.layout);
+				this.renderStupid(this._doc.prefs.channelAutocondense ? 15 : 0);
                 break;
         }
         this._optionsMenu.selectedIndex = 0;
