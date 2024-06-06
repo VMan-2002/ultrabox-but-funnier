@@ -30,7 +30,7 @@ export class ColorConfig {
 				--link-accent: #98f;
 				--ui-widget-background: #126;
 				--ui-widget-focus: #13b;
-				--pitch-background: #222;
+				--pitch-background: #050509f0;
 				--tonic: #246;
 				--fifth-note: #136;
 				--white-piano-key: #abd;
@@ -136,6 +136,59 @@ export class ColorConfig {
 				}
 				.settings-area {
 					background-color: #040b14;
+				}
+				#firstImage {
+					background-image: url("https://vman-2002.github.io/others/starfield.png") !important;
+					background-repeat: no-repeat !important;
+					background-size: 100% 100% !important;
+				}
+				.channelBoxLabel {
+					font-family: Montserrat !important;
+					font-weight: 650 !important;
+					text-shadow: 1.7px 1.7px #0000a4a0;
+					font-size: 140% !important;
+					transition: 0.3s;
+				}
+				.channelBox[style*="-primary-channel"] .channelBoxLabel {
+					color:white !important;
+					text-shadow: 1.9px 1.9px #0000a4c0, 1px 1px 3px #0000a4, 0px 0px 2px #0000a4;
+					font-weight: 800 !important;
+					font-size: 150% !important;
+					transition: 0.2s;
+				}
+				.trackContainer div svg g text {
+					font-family: Courier New, monospace !important;
+					font-weight: 600 !important;
+					text-shadow: 0 0 2px black;
+					font-size: 11px;
+				}
+				.muteButtonText {
+					font-family: Montserrat !important;
+					font-weight: 300 !important;
+				}
+				.piano-label {
+					font-family:Montserrat !important;
+					margin-left: -2px !important;
+				}
+				.version-area div input {
+					font-family: Verdana !important;
+					font-weight: bold !important;
+					font-style: italic;
+					letter-spacing: -1px;
+					font-size: 120% !important;
+					text-shadow: 0 0 4px gray, -2px 0px 1px purple, 2px 0px 1px blue;
+					word-spacing: 1.6px;
+				}
+				.version-area div {
+					margin-bottom: 2px !important;
+				}
+				h2 {
+					font-family: Verdana !important;
+					font-weight: bold !important;
+					font-style: italic;
+					letter-spacing: 1.2px;
+					text-shadow: 0 0 7px gray, -4px 0px 1px purple, 4px 0px 1px blue;
+					word-spacing: 2px;
 				}
 			`,
       "dark classic": `
