@@ -135,7 +135,8 @@ export class ColorConfig {
 					--disabled-note-secondary:  #511;
 				}
 				.settings-area {
-					background-color: #040b14;
+					background: rgb(1,0,9);
+					background: linear-gradient(0deg, rgba(1,0,9,1) 0%, rgba(7,19,34,1) 100%);
 				}
 				#firstImage {
 					background-image: url("https://vman-2002.github.io/others/starfield.png") !important;
