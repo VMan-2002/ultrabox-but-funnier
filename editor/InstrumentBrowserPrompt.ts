@@ -3,7 +3,9 @@ import { Prompt } from "./Prompt";
 import { SongDocument } from "./SongDocument";
 import { SongEditor } from "./SongEditor";
 import { EditorConfig } from "./EditorConfig";
-import { ChangePreset } from "./changes";
+import { ChangeGroup } from "./Change";
+import { ChangePreset, ChangeChipWave } from "./changes";
+import { Config } from "../synth/SynthConfig";
 
 const { button, div, h2 } = HTML;
 
@@ -32,7 +34,8 @@ export class InstrumentBrowserPrompt implements Prompt {
 				leftSide.append(button({onclick: () => this.categoryClick(EditorConfig.presetCategories.indexOf(a))}, a.name));
 			}
 		});
-		leftSide.children[0].after(button({onclick: () => this.categoryRandomClick()}, "Random"))
+		leftSide.children[0].after(button({onclick: () => this.categoryRandomClick()}, "Random"));
+		leftSide.children[1].after(button({onclick: () => this.categorySampleClick()}, "Samples"));
 		grid = div({style: "height: 100%; display:flex"}, leftSide, this.rightSide);
 		
 		this.container = div({class: "prompt", style: "max-width: calc(97vw - 5vh); width: calc(60vw + 30vh); max-height: calc(97vh - 5vw); height: calc(60vh + 20vw)"},
@@ -59,7 +62,7 @@ export class InstrumentBrowserPrompt implements Prompt {
 		this.rightSide.replaceChildren();
 		EditorConfig.presetCategories[i].presets.forEach((a) => {
 			if ((a.isNoise == true || (i == 0 && ["spectrum", "drumset"].includes(a.name))) === this.isNoise || (i == 0 && a.name == "noise")) {
-				this.rightSide.append(button({onclick: () => this.presetClick(EditorConfig.presetCategories[i].presets.indexOf(a))}, a.name));
+				this.rightSide.append(button({onclick: () => this.presetClick(EditorConfig.presetCategories[i].presets.indexOf(a)), title: a.description == null ? "" : a.description}, a.name));
 			}
 		});
 	}
@@ -67,8 +70,16 @@ export class InstrumentBrowserPrompt implements Prompt {
 	public categoryRandomClick = (): void => {
 		this.catNum = -1;
 		this.rightSide.replaceChildren();
-		[{name:"Random Preset",id:-100},{name:"Random Generated",id:-101}].forEach((a) => {
-			this.rightSide.append(button({onclick: () => this.presetClick(a.id)}, a.name));
+		[{name:"Random Preset",id:-100,description:"Select a random instrument preset"},{name:"Random Generated",id:-101,description:"Randomly generate a new instrument"}].forEach((a) => {
+			this.rightSide.append(button({onclick: () => this.presetClick(a.id), title: a.description}, a.name));
+		});
+	}
+	
+	public categorySampleClick = (): void => {
+		this.catNum = -2;
+		this.rightSide.replaceChildren();
+		Config.chipWaves.forEach((a) => {
+			this.rightSide.append(button({onclick: () => this.presetClick(Config.chipWaves.indexOf(a)), title: a.description == null ? "" : a.description}, a.name));
 		});
 	}
 	
@@ -79,6 +90,11 @@ export class InstrumentBrowserPrompt implements Prompt {
 				this._songEditor._randomPreset();
 			else if (i == -101)
 				this._songEditor._randomGenerated();
+		} else if (this.catNum == -2) {
+			const newChange = new ChangeGroup();
+			newChange.append(new ChangePreset(this._doc, 1153)); //sample simple
+			newChange.append(new ChangeChipWave(this._doc, i));
+			this._doc.record(newChange);
 		} else {
 			//console.log("Click "+i+" with name "+EditorConfig.presetCategories[this.catNum].presets[i].name);
 			//console.log("Click Index "+((this.catNum << 6) + i));
