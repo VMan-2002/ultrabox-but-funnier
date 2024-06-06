@@ -1557,6 +1557,15 @@ li.select2-results__option[role=group] > strong:hover {
   background-color: #516fbb;
 }
 
+div.instrumentbrowser-list {
+	overflow: auto scroll;
+}
+
+div.instrumentbrowser-list > button {
+	display: block;
+	margin: 6px 0px 5px 4px;
+}
+
 /* wide screen */
 @media (min-width: 711px) {
 	#beepboxEditorContainer {
