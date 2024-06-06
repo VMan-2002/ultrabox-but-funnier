@@ -2126,7 +2126,7 @@ export class SongEditor {
                     this.prompt = new ShortenerConfigPrompt(this._doc);
                     break;
                 case "instrumentBrowserPrompt":
-                    this.prompt = new InstrumentBrowserPrompt(this._doc);
+                    this.prompt = new InstrumentBrowserPrompt(this._doc, this);
                     break;
                 default:
                     this.prompt = new TipPrompt(this._doc, promptName);
@@ -4695,12 +4695,12 @@ export class SongEditor {
         }
     }
 
-    private _randomPreset(): void {
+    public _randomPreset(): void {
         const isNoise: boolean = this._doc.song.getChannelIsNoise(this._doc.channel);
         this._doc.record(new ChangePreset(this._doc, pickRandomPresetValue(isNoise)));
     }
 
-    private _randomGenerated(): void {
+    public _randomGenerated(): void {
         this._doc.record(new ChangeRandomGeneratedInstrument(this._doc));
     }
 
