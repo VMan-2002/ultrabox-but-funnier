@@ -191,6 +191,28 @@ export class ColorConfig {
 					text-shadow: 0 0 7px gray, -4px 0px 1px purple, 4px 0px 1px blue;
 					word-spacing: 2px;
 				}
+				h1, section > h2 {
+					font-family: Montserrat, Gotham !important;
+					font-weight: 600 !important;
+					font-style: italic;
+					font-size: 30pt;
+					letter-spacing: 3px;
+					text-shadow: 0 0 10px gray, -5px 0px 4px purple, 5px 0px 4px blue;
+					word-spacing: 2px;
+					color: #aabcef;
+					background: linear-gradient(90deg, rgba(50,0,255,0.01) 0%, rgba(45,60,105,0.5) 50%, rgba(50,0,255,0.01) 100%);
+				}
+				section > p, section > div > p, section > div > ul {
+					letter-spacing: 0.5px;
+					word-spacing: 2px;
+					text-shadow: 0 1px 4px #aabafa7a, 0 0 11px #4F6ABC;
+				}
+				section > div > ul {
+					letter-spacing: 0.4px;
+					word-spacing: 1px;
+					font-size: medium;
+					line-height: 130%;
+				}
 			`,
       "dark classic": `
 			:root {
