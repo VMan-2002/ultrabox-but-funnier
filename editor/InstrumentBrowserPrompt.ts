@@ -62,7 +62,7 @@ export class InstrumentBrowserPrompt implements Prompt {
 		this.rightSide.replaceChildren();
 		EditorConfig.presetCategories[i].presets.forEach((a) => {
 			if ((a.isNoise == true || (i == 0 && ["spectrum", "drumset"].includes(a.name))) === this.isNoise || (i == 0 && a.name == "noise")) {
-				this.rightSide.append(button({onclick: () => this.presetClick(EditorConfig.presetCategories[i].presets.indexOf(a)), title: a.description == null ? "" : a.description}, a.name));
+				this.rightSide.append(button({onclick: () => this.presetClick(EditorConfig.presetCategories[i].presets.indexOf(a)), title: a.description == null ? "(No description)" : a.description}, a.name));
 			}
 		});
 	}
@@ -79,7 +79,7 @@ export class InstrumentBrowserPrompt implements Prompt {
 		this.catNum = -2;
 		this.rightSide.replaceChildren();
 		Config.chipWaves.forEach((a) => {
-			this.rightSide.append(button({onclick: () => this.presetClick(Config.chipWaves.indexOf(a)), title: a.description == null ? "" : a.description}, a.name));
+			this.rightSide.append(button({onclick: () => this.presetClick(Config.chipWaves.indexOf(a)), title: a.description == null ? "(No description)" : a.description}, a.name));
 		});
 	}
 	
