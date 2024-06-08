@@ -10,7 +10,8 @@ const { button, div, h2, select, option } = HTML;
 
 export class ThemePrompt implements Prompt {
 	private readonly _themeSelect: HTMLSelectElement = select({ style: "width: 100%;" },
-			option({ value: "swag01" }, "Swag 01 (Todo: name this)"),
+			option({ value: "swag01" }, "SummitBox Wave"),
+			//option({ value: "swag01 noanim" }, "SummitBox Wave (no css animations)"), //do i add this? it disables the css animation in the channel boxes
 			option({ value: "dark classic" }, "BeepBox Dark"),
 			option({ value: "light classic" }, "BeepBox Light"),
 			option({ value: "dark competition" }, "BeepBox Competition Dark"),

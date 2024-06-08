@@ -213,6 +213,11 @@ export class ColorConfig {
 					font-size: medium;
 					line-height: 130%;
 				}
+				html {
+					background: url("https://vman-2002.github.io/others/starfield_scroll.gif"), linear-gradient(90deg, rgba(0,1,17,1) 0%, rgba(13,7,48,1) 50%, rgba(0,1,17,1) 100%);
+					background-blend-mode: screen;
+					background-size: calc(100px + 15vw), 100vw;
+				}
 			`,
       "dark classic": `
 			:root {
@@ -7381,7 +7386,15 @@ export class ColorConfig {
     private static readonly _styleElement: HTMLStyleElement = document.head.appendChild(HTML.style({ type: "text/css" }));
 
     public static setTheme(name: string): void {
+		let noanim = false;
+		if (name == "swag01 noanim") {
+			noanim = true;
+			name = "swag01";
+		}
 		let theme: string = this.themes[name];
+		if (noanim) {
+			theme = theme.split("\n").filter((a) => !a.includes("transition")).join("\n");
+		}
 		if (theme == undefined) theme = this.themes["dark classic"];
 		this._styleElement.textContent = theme;
 
