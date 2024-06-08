@@ -321,8 +321,11 @@
         // Randomize display of header
         // 1-in-23
         //I should rework this sometime (maybe add the midbox tips thingy?)
-        if (Math.floor(Math.random() * 8) == 0) {
-            switch (Math.floor(Math.random() * 22)) {
+		let urlparam = new URLSearchParams(window.location.search);
+		let plant = urlparam.get("plant");
+		let plantnum = plant != null && !isNaN(plant) ? plant / 1 : null;
+        if (plantnum != null || Math.floor(Math.random() * 7) == 0) {
+            switch (plantnum != null ? plantnum : Math.floor(Math.random() * 25)) {
                 // jummbox/goldbox plants
                 case 0:
                     document.getElementById("goldboxPlant").innerHTML = "  🍂";
@@ -404,6 +407,44 @@
                     break;
                 case 23:
                     document.getElementById("goldboxPlant").innerHTML = "  🍟";
+                    break;
+				// this is a real summit box
+                case 24:
+                    document.getElementById("goldboxPlant").innerHTML = "  'u'";
+                    break;
+                case 25:
+                    document.getElementById("goldboxPlant").innerHTML = "  🤔";
+                    break;
+                case 69:
+                    document.getElementById("goldboxPlant").innerHTML = "  <small>nice!</small>";
+                    break;
+                case 84:
+                    document.getElementById("goldboxPlant").innerHTML = "  <small>is the inverse of AbyssBox</small>";
+                    break;
+                case 212:
+                    document.getElementById("goldboxPlant").innerHTML = "  <span style=\"color:#7341F7\">O</span>";
+                    break;
+                case 275:
+                case 376: //lmao
+                    document.getElementById("goldboxPlant").innerHTML = "  <small>#freepalestine </small>🇵🇸🍉";
+                    break;
+                case 420:
+                    document.getElementById("goldboxPlant").innerHTML = "  <span title=\":LuckyHigh:\" style=\"text-shadow: 0px -2px 4px orange, 0px -3px 10px red;\">☘</span>";
+                    break;
+                case 459:
+                    document.getElementById("goldboxPlant").innerHTML = "  <small>what is azur lane</small>"; //nep if you see this you see it
+                    break;
+                case 1111:
+                    document.getElementById("goldboxPlant").innerHTML = "  <small>#savetf2 #fixtf2</small>";
+                    break;
+                case 2002:
+                    document.getElementById("goldboxPlant").innerHTML = "_2002";
+                    break;
+                case 58008:
+                    document.getElementById("goldboxPlant").innerHTML = "  <small>haha boobs</small>";
+                    break;
+                case 5318008:
+                    document.getElementById("goldboxPlant").innerHTML = "  <small>haha boobies</small>";
                     break;
             }
         }
