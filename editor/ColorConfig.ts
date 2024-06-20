@@ -144,7 +144,7 @@ export class ColorConfig {
 					background-size: 100% 100% !important;
 				}
 				.channelBoxLabel {
-					font-family: Montserrat, Gotham !important;
+					font-family: Montserrat, Gotham, Roboto, Trebuchet MS !important;
 					font-weight: 650 !important;
 					text-shadow: 1.7px 1.7px #0000a4a0;
 					font-size: 140% !important;
@@ -164,7 +164,7 @@ export class ColorConfig {
 					font-size: 11px;
 				}
 				.muteButtonText {
-					font-family: Montserrat, Gotham !important;
+					font-family: Montserrat, Gotham, Roboto, Trebuchet MS !important;
 					font-weight: 300 !important;
 				}
 				.piano-label {
