@@ -168,7 +168,7 @@ export class ColorConfig {
 					font-weight: 300 !important;
 				}
 				.piano-label {
-					font-family:Montserrat, Gotham !important;
+					font-family:Montserrat, Gotham, Roboto, Trebuchet MS !important;
 					margin-left: -2px !important;
 				}
 				.version-area div input {
@@ -192,7 +192,7 @@ export class ColorConfig {
 					word-spacing: 2px;
 				}
 				h1, section > h2 {
-					font-family: Montserrat, Gotham !important;
+					font-family: Montserrat, Gotham, Roboto, Trebuchet MS !important;
 					font-weight: 600 !important;
 					font-style: italic;
 					font-size: 30pt;
