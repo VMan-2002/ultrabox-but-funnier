@@ -218,6 +218,12 @@ export class ColorConfig {
 					background-blend-mode: screen;
 					background-size: calc(100px + 15vw), 100vw;
 				}
+				div:has(div > button.playButton) > h1 {
+					height: 35px;
+					text-align: center;
+					font-size: 215%;
+					padding-top: 15px
+				}
 			`,
       "dark classic": `
 			:root {
