@@ -218,7 +218,7 @@ export class ColorConfig {
 					background-blend-mode: screen;
 					background-size: calc(100px + 15vw), 100vw;
 				}
-				div:has(div > button.playButton) > h1 {
+				div:has(div > button.playButton, div > button.pauseButton) > h1 {
 					height: 35px;
 					text-align: center;
 					font-size: 215%;
